@@ -1,0 +1,621 @@
+{
+	"info": {
+		"_postman_id": "cacb528e-c4a1-4d9b-ae83-c3b5866611e4",
+		"name": "ClinicaOdontologicaConGo",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "27839154"
+	},
+	"item": [
+		{
+			"name": "Pacientes GetAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/pacientes/",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Paciente GetId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/pacientes/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Paciente GetDNI",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/pacientes/dni/12345678",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes",
+						"dni",
+						"12345678"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes POST",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "TOKEN",
+						"value": "marset-parula-token",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"nombre\": \"Pablo\",\n  \"apellido\": \"Lopez\",\n  \"direccion\": \"123 Main St\",\n  \"dni\": \"1111222\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/pacientes",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes PUT",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "TOKEN",
+						"value": "marset-parula-token",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"nombre\": \"AnaDos\",\n    \"apellido\": \"Martínez\",\n    \"direccion\": \"Calle Falsa 12113\",\n    \"dni\": \"12345678\"\n    \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/pacientes/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "paciente PATCH",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "TOKEN",
+						"value": "marset-parula-token",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": " {\n    \"nombre\": \"AnaFinal\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/pacientes/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "pacientes DELETE",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "TOKEN",
+						"value": "marset-parula-token",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/pacientes/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"pacientes",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TurnosGetId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/turnos/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"turnos",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TurnosGetByDni",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/turnos?dni=12345678",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"turnos"
+					],
+					"query": [
+						{
+							"key": "dni",
+							"value": "12345678"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TurnosPost",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "TOKEN",
+						"value": "marset-parula-token",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"paciente\": {\n    \"id\": 1,\n    \"nombre\": \"AnaFinal\",\n    \"apellido\": \"Mar\",\n    \"direccion\": \"Las acacias\",\n    \"dni\": \"12345678\",\n    \"fechaAlta\": \"0001-01-01T00:00:00Z\"\n  },\n  \"dentista\": {\n    \"id\": 1,\n    \"nombre\": \"Juan\",\n    \"apellido\": \"Pérez\",\n    \"matricula\": \"D12345\"\n  },\n  \"fecha\": \"2024-09-25T10:00:00Z\",\n  \"descripcion\": \"Consulta inicial de 454l\"\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/turnos",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"turnos"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TurnosPostDniYMatricula",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "TOKEN",
+						"value": "marset-parula-token",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"dni\": \"12345678\",\n  \"matricula\": \"D12345\",\n  \"fecha\": \"2024-09-25T10:00:00Z\",\n  \"descripcion\": \"Consulta inicial por dni y matricula\"\n}\n\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/turnos/dm",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"turnos",
+						"dm"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TurnosPostDniYMatriculaOpcion2",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "TOKEN",
+						"value": "marset-parula-token",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"dni\": \"12345678\",\n  \"matricula\": \"D12345\",\n  \"fecha\": \"2024-09-25T10:00:00Z\",\n  \"descripcion\": \"Consulta inicial por dni y matricula\"\n}\n\n\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/turnos/dm",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"turnos",
+						"dm"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TurnosPut",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "TOKEN",
+						"value": "marset-parula-token",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"paciente\": {\n    \"id\": 1,\n    \"nombre\": \"AnaFinal\",\n    \"apellido\": \"Martínez\",\n    \"direccion\": \"Las acacias\",\n    \"dni\": \"12345678\",\n    \"fechaAlta\": \"0001-01-01T00:00:00Z\"\n  },\n  \"dentista\": {\n    \"id\": 1,\n    \"nombre\": \"Juan\",\n    \"apellido\": \"Pérez\",\n    \"matricula\": \"D12345\"\n  },\n  \"fecha\": \"2024-09-25T10:00:00Z\",\n  \"descripcion\": \"Consulta cambio PUT\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/turnos/8",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"turnos",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TurnosPatch",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "TOKEN",
+						"value": "marset-parula-token",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"descripcion\": \"Nueva descripción Patch\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/turnos/8",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"turnos",
+						"8"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TurnosDelete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "TOKEN",
+						"value": "marset-parula-token",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/turnos/9",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"turnos",
+						"9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DentistaGetById",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "TOKEN",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/dentistas/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dentistas",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DentistaGetAll",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/dentistas",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dentistas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DentistaGetByMatricula",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/dentistas/matricula/D12345",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dentistas",
+						"matricula",
+						"D12345"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DentistaPost",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "TOKEN",
+						"value": "marset-parula-token",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n            \n            \"nombre\": \"Carlos\",\n            \"apellido\": \"Mendez\",\n            \"matricula\": \"D8888\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/dentistas",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dentistas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DentistaPut",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "TOKEN",
+						"value": "marset-parula-token",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n            \n            \"nombre\": \"Carlos\",\n            \"apellido\": \"MendezCambio\",\n            \"matricula\": \"D8888\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/dentistas/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dentistas",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DentistaPatch",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "TOKEN",
+						"value": "marset-parula-token",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n            \n       \n\"apellido\": \"MendezCambioPatch\"\n         \n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/dentistas/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dentistas",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePatch",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "TOKEN",
+						"value": "marset-parula-token",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/dentistas/4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"dentistas",
+						"4"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

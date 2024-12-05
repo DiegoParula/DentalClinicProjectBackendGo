@@ -1,0 +1,691 @@
+definitions:
+  domain.Dentista:
+    properties:
+      apellido:
+        type: string
+      id:
+        type: integer
+      matricula:
+        type: string
+      nombre:
+        type: string
+    required:
+    - apellido
+    - matricula
+    - nombre
+    type: object
+  domain.Paciente:
+    properties:
+      apellido:
+        type: string
+      direccion:
+        type: string
+      dni:
+        type: string
+      fechaAlta:
+        type: string
+      id:
+        type: integer
+      nombre:
+        type: string
+    required:
+    - apellido
+    - direccion
+    - dni
+    - nombre
+    type: object
+  domain.RequestData:
+    properties:
+      descripcion:
+        type: string
+      dni:
+        type: string
+      fecha:
+        type: string
+      matricula:
+        type: string
+    required:
+    - descripcion
+    - dni
+    - fecha
+    - matricula
+    type: object
+  domain.Turno:
+    properties:
+      dentista:
+        $ref: '#/definitions/domain.Dentista'
+      descripcion:
+        type: string
+      fecha:
+        description: |-
+          PacienteID int `json:"pacienteId" binding:"required"`
+          DentistaID int `json:"dentistaId" binding:"required"`
+        type: string
+      id:
+        type: integer
+      paciente:
+        $ref: '#/definitions/domain.Paciente'
+    required:
+    - descripcion
+    type: object
+  web.errorResponse:
+    properties:
+      code:
+        type: string
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Esta es una API para gestionar pacientes, dentistas y turnos en una
+    clínica odontológica.
+  title: API de Gestión de Turnos en Clínica Odontológica
+  version: "1.0"
+paths:
+  /dentistas:
+    get:
+      description: Obtiene una lista de todos los dentistas
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Dentista'
+            type: array
+      summary: Obtener todos los dentistas
+      tags:
+      - Dentistas
+    post:
+      consumes:
+      - application/json
+      description: Crea un nuevo dentista en el sistema
+      parameters:
+      - description: Datos del dentista
+        in: body
+        name: dentista
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Dentista'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Dentista'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Agregar dentista
+      tags:
+      - Dentistas
+  /dentistas/{id}:
+    delete:
+      description: Elimina un dentista existente
+      parameters:
+      - description: ID del Dentista
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties:
+              type: string
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Eliminar dentista
+      tags:
+      - Dentistas
+    get:
+      consumes:
+      - application/json
+      description: Obtiene un dentista a partir de su ID
+      parameters:
+      - description: ID del Dentista
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Dentista'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Buscar dentista por ID
+      tags:
+      - Dentistas
+    patch:
+      consumes:
+      - application/json
+      description: Modifica uno o varios campos de un dentista existente
+      parameters:
+      - description: ID del Dentista
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Campos opcionales del dentista
+        in: body
+        name: dentista
+        required: true
+        schema:
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Dentista'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Actualizar parcialmente dentista
+      tags:
+      - Dentistas
+    put:
+      consumes:
+      - application/json
+      description: Actualiza todos los campos de un dentista
+      parameters:
+      - description: ID del Dentista
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Datos del dentista
+        in: body
+        name: dentista
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Dentista'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Dentista'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Modificar dentista
+      tags:
+      - Dentistas
+  /dentistas/matricula/{matricula}:
+    get:
+      consumes:
+      - application/json
+      description: Obtiene un dentista a partir de su Matrícula
+      parameters:
+      - description: Matrícula del Dentista
+        in: path
+        name: matricula
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Dentista'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Buscar dentista por Matrícula
+      tags:
+      - Dentistas
+  /pacientes:
+    get:
+      description: Obtiene una lista de todos los pacientes.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Paciente'
+            type: array
+      summary: Obtener todos los pacientes
+      tags:
+      - Pacientes
+    post:
+      consumes:
+      - application/json
+      description: Crea un nuevo paciente en el sistema, no se le pasa fecha porque
+        toma la fecha actual del sistema
+      parameters:
+      - description: Datos del paciente
+        in: body
+        name: paciente
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Paciente'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Paciente'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Agregar paciente
+      tags:
+      - Pacientes
+  /pacientes/{id}:
+    delete:
+      description: Elimina un paciente existente
+      parameters:
+      - description: ID del Paciente
+        in: path
+        name: id
+        required: true
+        type: integer
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Eliminar paciente
+      tags:
+      - Pacientes
+    get:
+      consumes:
+      - application/json
+      description: Obtiene un paciente a partir de su ID
+      parameters:
+      - description: ID del Paciente
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Paciente'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Buscar paciente por ID
+      tags:
+      - Pacientes
+    patch:
+      consumes:
+      - application/json
+      description: Modifica uno o varios campos de un paciente existente no le pasamos
+        fecha porque no se puede actualizar ya que es la fecha de creacion y no deberia
+      parameters:
+      - description: ID del Paciente
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Campos opcionales del paciente
+        in: body
+        name: paciente
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Paciente'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Paciente'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Actualizar parcialmente paciente
+      tags:
+      - Pacientes
+    put:
+      consumes:
+      - application/json
+      description: Actualiza todos los campos de un paciente existente no le pasamos
+        fecha porque no se puede actualizar
+      parameters:
+      - description: ID del Paciente
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Datos del paciente
+        in: body
+        name: paciente
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Paciente'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Paciente'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Modificar paciente
+      tags:
+      - Pacientes
+  /pacientes/dni/{dni}:
+    get:
+      consumes:
+      - application/json
+      description: Obtiene un paciente a partir de su DNI
+      parameters:
+      - description: DNI del Paciente
+        in: path
+        name: dni
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Paciente'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Buscar paciente por DNI
+      tags:
+      - Pacientes
+  /turnos:
+    get:
+      consumes:
+      - application/json
+      description: Obtiene todos los turnos de un paciente específico por su DNI
+      parameters:
+      - description: DNI del Paciente
+        in: query
+        name: dni
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Turno'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Obtener turnos por DNI del paciente
+      tags:
+      - turnos
+    post:
+      consumes:
+      - application/json
+      description: Agrega un nuevo turno al sistema, el paciente y dentista deben
+        existir
+      parameters:
+      - description: Objeto Turno
+        in: body
+        name: turno
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Turno'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Turno'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Crear un nuevo turno
+      tags:
+      - turnos
+  /turnos/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Elimina un turno existente del sistema
+      parameters:
+      - description: ID del Turno
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Eliminar un turno
+      tags:
+      - turnos
+    get:
+      consumes:
+      - application/json
+      description: Obtiene los detalles de un turno específico por su ID
+      parameters:
+      - description: ID del Turno
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Turno'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Obtener un turno por ID
+      tags:
+      - turnos
+    patch:
+      consumes:
+      - application/json
+      description: Actualiza parcialmente un turno existente en el sistema, solo se
+        actualizan los campos proporcionados
+      parameters:
+      - description: ID del Turno
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Objeto Turno Parcial
+        in: body
+        name: turno
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Turno'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Turno'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Actualizar parcialmente un turno
+      tags:
+      - turnos
+    put:
+      consumes:
+      - application/json
+      description: Actualiza un turno existente en el sistema
+      parameters:
+      - description: ID del Turno
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Objeto Turno Actualizado
+        in: body
+        name: turno
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Turno'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/domain.Turno'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Actualizar un turno
+      tags:
+      - turnos
+  /turnos/dm:
+    post:
+      consumes:
+      - application/json
+      description: Agrega un nuevo turno al sistema usando DNI, Matrícula para búsqueda
+        y también cargar fecha y descripción del turno
+      parameters:
+      - description: Datos de la Solicitud
+        in: body
+        name: requestData
+        required: true
+        schema:
+          $ref: '#/definitions/domain.RequestData'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/domain.Turno'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/web.errorResponse'
+      summary: Crear un nuevo turno por DNI y Matrícula
+      tags:
+      - turnos
+swagger: "2.0"
